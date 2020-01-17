@@ -1,0 +1,61 @@
+{% extends "blog/base.html" %}
+{% block title %}Create an account{% endblock %}
+{% block content %}
+<h1>Create an account</h1>
+<p>Please, sign up using the following form:</p>
+<div>
+    <div class="form-group row">
+        <div class="col-sm-7">
+            <form action="." method="post">
+            {{ user_form }}
+            {% csrf_token %}
+            <p><input type="submit" value="Create my account"></p>
+            </form>
+        </div>
+    </div>
+    <div class="container signin">
+        <p>Already have an account? </p>
+        <button><a href="{% url 'login' %}">Sign in</a></button>
+    </div>
+</div>
+
+
+<style>
+body {
+    background: url('https://images.unsplash.com/photo-1534408679207-69b9615e55a7?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&s=cfbabd80cd2d5cae495a2a732d473562') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.card {
+  width: 300px;
+}
+
+* {box-sizing: border-box}
+
+/* Add padding to containers */
+.container {
+  padding: 16px;
+}
+
+
+
+/* Overwrite default styles of hr */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+
+
+
+/* Add a blue text color to links */
+a {
+  color: dodgerblue;
+}
+
+
+
+</style>
+{% endblock %}

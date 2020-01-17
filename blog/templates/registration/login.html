@@ -1,0 +1,76 @@
+{% extends "blog/base.html" %}
+
+{% block title %} LoGin {% endblock %}
+
+{% block content %}
+<h1>Log-in</h1>
+<center><div><strong>WELCOME BACK!!!</strong></div></center>
+
+        {% if form.errors %}
+        <p>
+            Your username and password didn't match.
+            Please try again.
+        </p>
+        {% else %}
+        <p>Please, use the following form to log-in:</p>
+        {% endif %}
+
+        <div class="row">
+            <div class="col-sm-12">
+            <form action="{% url 'login' %}" method="post">
+                {{ form.as_p }}
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ next }}"/>
+                <p><input type="submit" value="Log-in"></p>
+            </form>
+            </div>
+        </div>
+<div class="col-sm-12">
+        <p><a href="{% url "password_reset" %}">Forgotten your
+        password?</a></p>
+        <p>If you don't have an account <a href="#">register here</a></p>
+</div>
+
+
+<style>
+    body {
+        background: url('https://images.unsplash.com/photo-1534408679207-69b9615e55a7?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&s=cfbabd80cd2d5cae495a2a732d473562') no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+
+form {
+  padding: 30px;
+  height: 120px;
+}
+
+*, label {
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 16px;
+  font-variant: normal;
+  padding: 0;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+label {
+  font-weight: 500;
+  font-size: 14px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.form-row {
+  width: 70%;
+  float: left;
+}
+
+.wrapper {
+  width: 670px;
+  margin: 0 auto;
+  height: 100%;
+}
+
+</style>
+{% endblock %}

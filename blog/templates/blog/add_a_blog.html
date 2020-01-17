@@ -1,0 +1,12 @@
+{% extends "blog/base.html" %}
+
+{% block title %}Edit your account{% endblock %}
+{% block content %}
+<h1>add a blog</h1>
+<p>You can edit your account using the following form:</p>
+<form action="." method="POST">
+{{blog_form.as_p }}
+{% csrf_token %}
+<p><input type="submit" value="post"></p>
+</form>
+{% endblock %}
