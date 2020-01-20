@@ -9,11 +9,10 @@ from django.conf import settings
 
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile')
-    date_of_birth = models.DateTimeField(blank=True, null=True)
-    photo = models.ImageField(upload_to='users/%Y/%m/%d/', blank=True)
 
     def __str__(self):
         return 'Profile for user {}'.format(self.user.username)
+
 
 class PublishedManager(models.Manager):
     def	get_queryset(self):
@@ -47,16 +46,16 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    post=models.ForeignKey(Post,on_delete=models.CASCADE, related_name='comments')
-    name=models.CharField(max_length=80)
-    # email=models.EmailField()
-    body=models.CharField(max_length=160)
-    created=models.DateTimeField(auto_now_add=True)
-    updated=models.DateTimeField(auto_now=True)
-    active=models.BooleanField(default=True)
+    post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='comments')
+    name = models.CharField(max_length=80)
+    email = models.EmailField()
+    comment = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    active = models.BooleanField(default=True)
 
     class Meta:
-        ordering=('created',)
+        ordering = ('created',)
 
     def __str__(self):
         return 'Comment by {} on {}'.format(self.name, self.post)

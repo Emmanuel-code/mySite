@@ -23,7 +23,8 @@
 {% if request.user.is_authenticated %}
     <nav class="navbar sticky-top navbar-dark bg-dark">
         <a class="navbar-brand" style="font-family:elephant;" href="#"><strong>BEJ-F</strong></a>
-        <a href="{% url 'blog:add_blog' %}" class="top-menu"><span class="glyphicon glyphicon-plus">+ADD NEW</span></a>
+        <a href="{% url 'person:profile' %}" class="top-menu"><span class="glyphicon glyphicon-user"></span>profile</a>
+
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
                 aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,6 +55,7 @@
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
                        aria-haspopup="true"
                        aria-expanded="false">Latest posts</a>
+                    <a href="{% url "blog:post_search" %}">search</a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" >{% show_latest_posts 3 %}</a>
                     </div>
@@ -84,6 +86,7 @@
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item active">
                     <a class="nav-link" href="{% url 'blog:register' %}"> Register</a>
+                    <a class="nav-link" href="{% url 'login' %}"> Sign in</a>
                 </li>
             </ul>
         </div>
@@ -100,55 +103,15 @@
 
 
 
-<div class="tab-content">
-  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
-  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-  <div class="tab-pane fade" id="messages" role="tabpanel" aria-labelledby="messages-tab">...</div>
-  <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">...</div>
-</div>
-    <div class="tab-content">
-  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
-  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-  <div class="tab-pane fade" id="messages" role="tabpanel" aria-labelledby="messages-tab">...</div>
-  <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">...</div>
-</div>
-    <div class="tab-content">
-  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
-  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-  <div class="tab-pane fade" id="messages" role="tabpanel" aria-labelledby="messages-tab">...</div>
-  <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">...</div>
-</div>
-<div class="tab-content">
-  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
-  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-  <div class="tab-pane fade" id="messages" role="tabpanel" aria-labelledby="messages-tab">...</div>
-  <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">...</div>
-</div>
-    <div class="tab-content">
-  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
-  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-  <div class="tab-pane fade" id="messages" role="tabpanel" aria-labelledby="messages-tab">...</div>
-  <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">...</div>
-</div>
-    <div class="tab-content">
-  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
-  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-  <div class="tab-pane fade" id="messages" role="tabpanel" aria-labelledby="messages-tab">...</div>
-  <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">...</div>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<div class="footer" style="padding:0px 20px; background-color: black; height:50px; width:100%;" >
+    <a href="{% url 'person:about' %}">ABOUT</a> |
+    <a href="https://b.emma.j37@gmail.com">Contact by email</a> |
+
+    <a>Tel: +233541555607</a>
 </div>
 
-
-<!--<div>-->
-<!--        <p>Hello it's me Emmanuel</p>-->
-<!--    -->
-<!--        <p>THANK YOU</p>-->
-<!--</div>-->
-
-<div class="footer">
-    <a href="about.html">ABOUT</a> |
-    <a href="https://b.emma.j37@gmail.com">CONTACT</a> |
-    <P>&copy; Developer:BEJ</P>
-</div>
 
     </body>
 </html>

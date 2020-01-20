@@ -1,0 +1,24 @@
+{% extends 'blog/base.html' %}
+{% load blog_tags %}
+
+{% block content %}
+
+		<h1>My Profile</h1>
+{% for p in profile %}
+<div class="container">
+	<p><img src="{{ p.photo.url }}" width="240"></p>
+	<pre>FIRST NAME:    {{ p.first_name }}</pre>
+	<pre>LAST NAME:    	{{ p.last_name }}</pre>
+	<pre>EMAIL ADDR:{{ p.email }}</pre>
+	<pre>TELEPHONE:    	{{ p.phone }}</pre>
+	<pre>ABOUT ME:     </pre>
+	<pre>{{ p.about_me }}</pre>
+
+</div>
+{% endfor %}
+
+<br>
+<progress></progress>
+<p style="background-color:orange;">currently i have {{ num_post }} posts</p>
+
+{% endblock content %}

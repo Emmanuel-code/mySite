@@ -14,9 +14,8 @@ urlpatterns = [
     path('tag/<slug:tag_slug>/', views.post_list, name='post_list_by_tag'),
     path('feed/',LatestPostsFeed(), name='post_feed'),
     path('search/', views.post_search, name='post_search'),
-
     path('register/', views.register, name='register'),
+
     path('edit_profile/', views.edit, name='edit'),
-    path('profile/',views.profile_view, name='profile'),
 
 ]

@@ -6,25 +6,12 @@ from .forms import EmailPostForm,CommentForm,SearchForm
 from django.core.mail import send_mail
 from taggit.models import Tag
 from django.db.models import Count
-from django.contrib.postgres.search import TrigramSimilarity
+from django.contrib.postgres.search import SearchVector
 from django.contrib.auth.decorators import login_required
-from .forms import UserRegistrationForm,UserEditForm,ProfileEditForm,BlogAdd
+from .forms import UserRegistrationForm,UserEditForm,BlogAdd
 from django.shortcuts import redirect
 from django.utils import timezone
 from django.urls import reverse
-
-@login_required
-def edit(request):
-    if request.method=='POST':
-        user_form=UserEditForm(instance=request.user, data=request.POST)
-        profile_form=ProfileEditForm(instance=request.user.profile, data=request.POST, files=request.FILES)
-        if user_form.is_valid() and profile_form.is_valid():
-            user_form.save()
-            profile_form.save()
-    else:
-        user_form=UserEditForm()
-        profile_form=ProfileEditForm()
-    return render(request, 'blog/profile.html',{'user_form':user_form, 'profile_form':profile_form})
 
 
 def register(request):
@@ -35,7 +22,6 @@ def register(request):
             new_user.set_password(user_form.cleaned_data['password'])
             new_user.save()
             # Create the user profile
-            Profile.objects.create(user=new_user)
             return render(request,'registration/register_done.html',{'new_user':new_user})
     else:
         user_form=UserRegistrationForm()
@@ -91,7 +77,7 @@ def post_edit(request, pk):
             return redirect('blog:post_detail', pk=post.pk)
     else:
         form = BlogAdd(instance=post)
-    return render(request, 'blog/post_edit.html', {'form': form})
+    return render(request, 'blog/post_edit.html',context={'form': form})
 
 
 @login_required
@@ -131,7 +117,7 @@ def post_share(request,post_id):
             post_url = request.build_absolute_uri(post.get_absolute_url())
             subject = '{} ({}) recommends you reading "{}"'.format(cd['name'],cd['email'],post.title)
             message = 'Read	"{}"	at	{}\n\n{}\'s	comments:	{}'.format(post.title,	post_url,	cd['name'],	cd['comments'])
-            send_mail(subject, message, 'admin@myblog.com', [cd['to']])
+            send_mail(subject, message, 'b.emma.j37@gmail.com', [cd['to']])
             sent=True
 
     else:
@@ -148,24 +134,23 @@ def post_search(request):
         form = SearchForm(request.GET)
         if form.is_valid():
             query = form.cleaned_data['query']
-            # search_vector = SearchVector('title', weight='A') + SearchVector('body',weight='B')
             results = Post.objects.annotate(
-                similarity=TrigramSimilarity('title', query),
-            ).filter(similarity__gt=0.3).order_by('-similarity')
-            # search_query = SearchQuery(query)
-
-    return render(request,
-                  'blog/post/search.html',
-                   {'form': form,
-                    'query': query,
-                    'results': results})
+                search=SearchVector('title', 'body'),).filter(search=query)
+    return render(request,'blog/post/search.html',{'form': form,'query': query,'results': results})
 
 
-def profile_view(request):
-    profile=Profile.objects.all()
-    num_post=Post.published.filter(author=request.user).count()
-    context = {
-        'profile': profile,
-        'num_post':num_post,
-    }
-    return render(request, "registration/profile.html", context)
+
+@login_required
+def edit(request):
+    if request.method=='POST':
+        user_form=UserEditForm(instance=request.user, data=request.POST)
+        profile_form=ProfileEditForm(instance=request.user.profile, data=request.POST, files=request.FILES)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            return redirect('/profile')
+    else:
+        user_form=UserEditForm(instance=request.user)
+        profile_form=ProfileEditForm(instance=request.user.profile)
+    return render(request, 'blog/profile.html',{'user_form':user_form, 'profile_form':profile_form})
+

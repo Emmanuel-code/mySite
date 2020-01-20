@@ -21,7 +21,7 @@ EMAIL_HOST_USER	= 'b.emma.j37@gmail.com'
 EMAIL_HOST_PASSWORD	= 'BejEtube'
 EMAIL_PORT=587
 EMAIL_USE_TLS=True
-EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
+ACCOUNT_EMAIL_VERIFICATION='none'
 
 
 # Quick-start development settings - unsuitable for production
@@ -44,7 +44,7 @@ SITE_ID = 1
 
 INSTALLED_APPS = [
     'crispy_forms',
-
+    'person',
     'django.contrib.postgres',
     'django.contrib.sites',
     'django.contrib.sitemaps',
