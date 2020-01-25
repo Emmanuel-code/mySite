@@ -33,7 +33,7 @@ class Post(models.Model):
     publish=models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated	= models.DateTimeField(auto_now=True)
-    status=models.CharField(max_length=10,choices=STATUS_CHOICES,default='published')
+    status=models.CharField(max_length=10,choices=STATUS_CHOICES,default='draft')
 
     def get_absolute_url(self):
         return reverse('blog:post_detail',	args=[str(self.pk)])

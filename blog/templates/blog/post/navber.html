@@ -1,0 +1,65 @@
+
+{%	load blog_tags	%}
+
+
+<nav class="navbar navbar-expand-lg py-3 navbar-dark bg-dark shadow-sm">
+  <div class="container">
+    <a href="#" class="navbar-brand">
+      <!-- Logo Image -->
+      <img src="https://res.cloudinary.com/mhmd/image/upload/v1557368579/logo_iqjuay.png" width="45" alt="" class="d-inline-block align-middle mr-2">
+      <!-- Logo Text -->
+      <span class="text-uppercase font-weight-bold">Wini</span>
+    </a>
+
+    <button type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"><span class="navbar-toggler-icon"></span></button>
+{% if request.user.is_authenticated %}
+    <div id="navbarSupportedContent" class="collapse navbar-collapse">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active"><a href="/" class="nav-link">Home <span class="sr-only">(current)</span></a></li>
+
+          <li class="nav-item dropdown">
+              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Most commented Posts</a>
+              {% get_most_commented_posts as most_commented_posts %}
+              <div class="dropdown-menu dropdown-menu">
+                  {% for post in most_commented_posts %}
+                  <a class="dropdown-item" href="{{ post.get_absolute_url }}">{{ post.title}}</a>
+                  {% endfor %}
+              </div>
+          </li>
+
+              <li class="nav-item dropdown">
+                  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Latest posts</a>
+                  <div class="dropdown-menu dropdown-menu">
+                      <a class="dropdown-item">{% show_latest_posts 3 %}</a>
+                  </div>
+              </li>
+        <li class="nav-item"><a href="{% url 'person:profile' %}" class="top-menu">profile</a></li>
+              Hello <span class="glyphicon glyphicon-user"></span>{{ request.user.first_name }}
+              <li class="nav-item"><a href="{% url "logout" %}">Logout</a></li>
+
+      </ul>
+    </div>
+
+
+      {% else %}
+      <div id="navbarSupportedContent" class="collapse navbar-collapse">
+          <ul class="navbar-nav ml-auto">
+
+              <li class="nav-item active">
+                  <a class="nav-link" href="{% url 'blog:register' %}"> Register</a>
+              </li>
+              <li class="nav-item active">
+                  <a class="nav-link" href="{% url 'login' %}"> Sign in</a>
+              </li>
+          </ul>
+      </div>
+{% endif %}
+
+  </div>
+</nav>
+
+<!--<a href="{% url "blog:post_search" %}">search</a>-->
+<!--                <li class="nav-item">-->
+<!--                    <a href="{% url "blog:post_feed" %}">Subscribe to my RSS feed</a>-->
+<!--                </li>-->
+

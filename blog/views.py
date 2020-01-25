@@ -8,7 +8,7 @@ from taggit.models import Tag
 from django.db.models import Count
 from django.contrib.postgres.search import SearchVector
 from django.contrib.auth.decorators import login_required
-from .forms import UserRegistrationForm,UserEditForm,BlogAdd
+from .forms import UserRegistrationForm
 from django.shortcuts import redirect
 from django.utils import timezone
 from django.urls import reverse
@@ -48,36 +48,7 @@ def post_list(request,tag_slug=None):
                      {'page': page, 'posts': posts,'tag':tag})
 
 
-@login_required
-def add_blog(request):
-    if request.method=='POST':
-        blog_form=BlogAdd(data=request.POST)
-        if blog_form.is_valid():
-            new_post=blog_form.save(commit=False)
-            new_post.author=request.user
-            new_post.publish=timezone.now()
-            new_post.save()
-            blog_form.save_m2m()
-            return redirect('blog:post_detail', pk=new_post.pk)
-    else:
-        blog_form=BlogAdd()
-    return render(request,'blog/add_a_blog.html',{'post_detail':post_detail,'blog_form':blog_form})
 
-
-def post_edit(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    if request.method == "POST":
-        form = BlogAdd(request.POST, instance=post)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.publish = timezone.now()
-            post.save()
-            post.save_m2m()
-            return redirect('blog:post_detail', pk=post.pk)
-    else:
-        form = BlogAdd(instance=post)
-    return render(request, 'blog/post_edit.html',context={'form': form})
 
 
 @login_required
@@ -139,18 +110,4 @@ def post_search(request):
     return render(request,'blog/post/search.html',{'form': form,'query': query,'results': results})
 
 
-
-@login_required
-def edit(request):
-    if request.method=='POST':
-        user_form=UserEditForm(instance=request.user, data=request.POST)
-        profile_form=ProfileEditForm(instance=request.user.profile, data=request.POST, files=request.FILES)
-        if user_form.is_valid() and profile_form.is_valid():
-            user_form.save()
-            profile_form.save()
-            return redirect('/profile')
-    else:
-        user_form=UserEditForm(instance=request.user)
-        profile_form=ProfileEditForm(instance=request.user.profile)
-    return render(request, 'blog/profile.html',{'user_form':user_form, 'profile_form':profile_form})
 

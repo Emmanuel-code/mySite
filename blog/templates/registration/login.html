@@ -1,6 +1,6 @@
 {% extends "blog/base.html" %}
 
-{% block title %} LoGin {% endblock %}
+{% block title %} Login {% endblock %}
 
 {% block content %}
 <h1>Log-in</h1>
@@ -15,9 +15,9 @@
         <p>Please, use the following form to log-in:</p>
         {% endif %}
 
-        <div class="row">
-            <div class="col-sm-12">
-            <form action="{% url 'login' %}" method="post">
+        <div class="row" >
+            <div class="form-group" style="width:1822;" >
+            <form class="px-4 py-3" action="{% url 'login' %}" method="post">
                 {{ form.as_p }}
                 {% csrf_token %}
                 <input type="hidden" name="next" value="{{ next }}"/>

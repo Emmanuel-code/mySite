@@ -2,19 +2,8 @@ from django import forms
 from .models import Comment
 
 from django.contrib.auth.models import User
-from .models import Post
 
 
-class BlogAdd(forms.ModelForm):
-    class Meta:
-        model=Post
-        fields=('tags','title', 'body')
-
-
-class UserEditForm(forms.ModelForm):
-    class Meta:
-        model=User
-        fields=('first_name','last_name','email')
 
 
 class UserRegistrationForm(forms.ModelForm):

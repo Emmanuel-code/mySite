@@ -26,13 +26,6 @@ h2 {
     padding:0 0 0 30px;
 }
 
-#sidebar {
-    float:right;
-    width:30%;
-    padding:10px;
-    background:#efefef;
-    height:100%;
-}
 
 p.date {
     color:#ccc;
@@ -49,14 +42,14 @@ p.date {
 
 /* forms */
 label {
-    float:left;
+    float:center;
     clear:both;
     color:#333;
     margin-bottom:4px;
 }
 input, textarea {
     clear:both;
-    float:left;
+    float:center;
     margin:0 0 10px;
     background:#ededed;
     border:0;

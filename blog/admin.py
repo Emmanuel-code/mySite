@@ -1,7 +1,8 @@
 from django.contrib import admin
 from .models import Post
 from .models import Comment
-
+from tinymce.widgets import TinyMCE
+from django.db import models
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
@@ -13,6 +14,7 @@ class PostAdmin(admin.ModelAdmin):
     date_hierarchy = 'publish'
     ordering = ('status',	'publish')
 
+    formfield_overrides = {models.TextField: {'widget': TinyMCE(attrs={'cols': 80, 'rows': 30})},}
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):

@@ -1,16 +1,14 @@
-{%	load blog_tags	%}
 
-
+ {% load static %}
 <!doctype html>
 <html lang="en">
     <head>
-     {%	load blog_tags	%}
-      {% load static %}
+
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>{%	block	title	%}{%	endblock	%}</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        	<link	href="{% static	'css/style.css' %} "	rel="stylesheet">
+        <link	href="{% static	'css/style.css' %} " rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <style>
@@ -20,78 +18,8 @@
     </head>
 
     <body>
-{% if request.user.is_authenticated %}
-    <nav class="navbar sticky-top navbar-dark bg-dark">
-        <a class="navbar-brand" style="font-family:elephant;" href="#"><strong>BEJ-F</strong></a>
-        <a href="{% url 'person:profile' %}" class="top-menu"><span class="glyphicon glyphicon-user"></span>profile</a>
+    {% include "blog/post/navber.html" %}
 
-
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
-                aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a href="{% url "blog:post_feed" %}">Subscribe to my RSS feed</a>
-                </li>
-
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
-                       aria-haspopup="true"
-                       aria-expanded="false">Most commented Posts</a>
-                    {% get_most_commented_posts as most_commented_posts %}
-                    <div class="dropdown-menu">
-                        {% for post in most_commented_posts %}
-                            <a class="dropdown-item" href="{{ post.get_absolute_url }}">{{ post.title}}</a>
-                        {% endfor %}
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
-                       aria-haspopup="true"
-                       aria-expanded="false">Latest posts</a>
-                    <a href="{% url "blog:post_search" %}">search</a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" >{% show_latest_posts 3 %}</a>
-                    </div>
-                </li>
-            </ul>
-
-
-        </div>
-    </nav>
-            <span class="navbar-text navbar-right">
-            {% if request.user.is_authenticated %}
-                Hello <span class="glyphicon glyphicon-user"></span>{{ request.user.first_name }}|
-                <a href="{% url "logout" %}">Logout</a>
-            {% endif %}
-    </span>
-
-
-    {% else %}
-
-<nav class="navbar sticky-top navbar-dark bg-dark">
-        <a class="navbar-brand" style="font-family:elephant;" href="#"><strong>BEJ-F</strong></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
-                aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'blog:register' %}"> Register</a>
-                    <a class="nav-link" href="{% url 'login' %}"> Sign in</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-{% endif %}
 
 
     <div class="col s12 m6">
