@@ -44,7 +44,7 @@ SITE_ID = 1
 
 TINYMCE_DEFAULT_CONFIG = {
     'height': 360,
-    'width': 1000,
+    'width': 700,
 
     'cleanup_on_startup': True,
     'custom_undo_redo_levels': 20,
